@@ -1,0 +1,22 @@
+class Solution {
+public:
+    int countx = -1;
+    int county = -2;
+    
+    void step(TreeNode* root, int x, int y, int count){
+        if(!root)return;
+        if(root->val==x)countx = count;
+        if(root->val==y)county = count;
+        if((root -> left) && (root -> right) &&
+           root -> left ->val == x && root -> right ->val == y)return;
+        if((root -> left) && (root -> right) &&
+           root -> left ->val == y && root -> right ->val == x)return;
+        step(root -> left,x,y, count+1); step(root -> right,x,y,count+1);
+    };
+    
+    bool isCousins(TreeNode* root, int x, int y) {
+        step(root,x,y, 0);
+        return (countx==county);
+        
+    };
+};
